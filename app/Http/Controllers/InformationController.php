@@ -23,7 +23,7 @@ class InformationController extends Controller{
         if(isset($Information->id)){
             return response()->json($Information);
         }
-        return response()->json('failed');
+        return response("null");
     }
  
     public function createInformation(Request $request){
@@ -65,7 +65,7 @@ class InformationController extends Controller{
             $Informations  = Information::join("informations_parents", "idEnfant", '=', 'id')->where('idParent', '=', $CategorieParent->id)->get();
             return response()->json($Informations);
         }
-        $Informations = "failed";
+        return response()->json("failed");
     }
 
     public function createCategorieEnfantsInformations($unix, $unixEnfant){

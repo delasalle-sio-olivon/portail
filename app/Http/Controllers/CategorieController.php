@@ -20,7 +20,7 @@ class CategorieController extends Controller{
         if(isset($Categorie->id)){
             return response()->json($Categorie);
         }
-        return response()->json('failed');
+        return response("null");
     }
  
     public function createCategorie(Request $request){
@@ -62,9 +62,7 @@ class CategorieController extends Controller{
         $CategorieParent = Categorie::where('unix', $unix)->first();
         if(isset($CategorieParent->id)){
             $Categories  = Categorie::join("categories_parents", "idEnfant", '=', 'id')->where('idParent', '=', $CategorieParent->id)->get();
-            if(isset($Categorie->id)){
-                return response()->json($Categories);
-            }
+            return response()->json($Categories);
         }
         return response()->json('failed');
     }

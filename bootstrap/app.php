@@ -96,5 +96,9 @@ $app->singleton(
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
-
+/*
+// allow origin
+header('Access-Control-Allow-Origin: *');
+// add any additional headers you need to support here
+header('Access-Control-Allow-Headers: Origin, Content-Type');/*/
 return $app;
