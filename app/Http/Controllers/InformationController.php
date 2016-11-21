@@ -29,30 +29,34 @@ class InformationController extends Controller{
     public function createInformation(Request $request){
         if($request->has('unix') && $request->has('titre') &&  $request->has('resume') && $request->has('detail')){
             $Information = Information::create($request->all());
-            return response()->json('posted');
+            return response()->json($Information->id);
         }
         return response()->json('failed');
     }
 
-    public function updateInformation(Request $request, $unix){
-        if($request->has('unix') && $request->has('titre') &&  $request->has('resume') && $request->has('detail')){
-            $Information  = Information::where('unix', $unix)->first();
+    public function updateInformation(Request $request){
+        if($request->has('id') && $request->has('unix') && $request->has('titre') &&  $request->has('resume')){
+            $Information  = Information::where('id',$request->input('id'))->first();
             if(isset($Information->id)){
-            $Information->unix = $request->input('unix');
-            $Information->titre = $request->input('titre');
-            $Information->resume = $request->input('resume');
-            $Information->detail = $request->input('detail');
-            $Information->save();
-    
-            return response()->json('updated');
+                $Information->unix = $request->input('unix');
+                $Information->titre = $request->input('titre');
+                $Information->resume = $request->input('resume');
+                $Information->detail = $request->input('detail');
+                $Information->save();
+        
+                return response()->json('updated');
+            }else{
+                $Information = Information::create($request->all());
+                return response()->json('updated');
             }
         }
         return response()->json('failed');
     }
 
-    public function deleteInformation($unix){
-        $Information  = Information::where('unix', $unix)->first();
+    public function deleteInformation($id){
+        $Information  = Information::where('id', $id)->first();
         if(isset($Information->id)){
+            DB::table('informations_parents')->where('idEnfant', '=', $Information->id)->delete();
             $Information->delete();
             return response()->json('deleted');
         }

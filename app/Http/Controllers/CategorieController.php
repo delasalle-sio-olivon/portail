@@ -26,14 +26,14 @@ class CategorieController extends Controller{
     public function createCategorie(Request $request){
         if($request->has('unix') && $request->has('titre') &&  $request->has('resume') && $request->has('detail')){
             $Categorie = Categorie::create($request->all());
-            return response()->json('posted');
+            return response()->json($Categorie->id);
         }
         return responde()->json('failed');
     }
 
-    public function updateCategorie(Request $request, $unix){
-        if($request->has('unix') && $request->has('titre') &&  $request->has('resume') && $request->has('detail')){
-            $Categorie  = Categorie::where('unix', $unix)->first();
+    public function updateCategorie(Request $request){
+        if($request->has('id') && $request->has('unix') && $request->has('titre')){
+            $Categorie  = Categorie::where('id', $request->input('id'))->first();
             if(isset($Categorie->id)){
                 $Categorie->unix = $request->input('unix');
                 $Categorie->titre = $request->input('titre');
@@ -42,6 +42,9 @@ class CategorieController extends Controller{
                 $Categorie->save();
         
                 return response()->json('updated');
+            }else{
+                Categorie::create($request->all());
+                return response()->json('updated');
             }
         }
         return response()->json('failed');
@@ -49,8 +52,11 @@ class CategorieController extends Controller{
     }
 
     public function deleteCategorie($unix){
-        $Categorie  = Categorie::where('unix', $unix)->first();
+        $Categorie  = Categorie::where('id', $unix)->first();
         if(isset($Categorie->id)){
+            DB::table('categories_parents')->where('idParent', '=', $Categorie->id)->delete();
+            DB::table('categories_parents')->where('idEnfant', '=', $Categorie->id)->delete();
+            DB::table('informations_parents')->where('idParent', '=', $Categorie->id)->delete();
             $Categorie->delete();
         return response()->json('deleted');
         }

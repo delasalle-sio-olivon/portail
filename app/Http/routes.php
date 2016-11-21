@@ -25,7 +25,7 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
       
     $app->post('categories','CategorieController@createCategorie');
       
-    $app->put('categories/{unix}','CategorieController@updateCategorie');
+    $app->put('categories','CategorieController@updateCategorie');
       
     $app->delete('categories/{unix}','CategorieController@deleteCategorie');
 
@@ -46,7 +46,7 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
       
     $app->post('informations','InformationController@createInformation');
       
-    $app->put('informations/{unix}','InformationController@updateInformation');
+    $app->put('informations','InformationController@updateInformation');
       
     $app->delete('informations/{unix}','InformationController@deleteInformation');
 
@@ -56,6 +56,20 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
     $app->post('categories/{unix}/enfants/informations/{unixEnfant}','InformationController@createCategorieEnfantsInformations');
 
     $app->delete('categories/{unix}/enfants/informations/{unixEnfant}','InformationController@deleteCategorieEnfantsInformations');
+    
+
+    $app->get('links/categories','LinkController@categories');
+
+    $app->put('links/categories','LinkController@updateAllCats');
+
+    $app->post('links/categories','LinkController@addLinkCat');
+
+    $app->post('links/informations','LinkController@addLinkInfo');
+
+    $app->get('links/informations','LinkController@informations');
+
+    $app->put('links/informations','LinkController@updateAllInfos');
+
 
 });
 
