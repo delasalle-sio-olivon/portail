@@ -74,9 +74,9 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
     $app->delete('links/categories/{idParent}/{idEnfant}','LinkController@delLinkCat');
 
-    $app->post('image/{unix}','ImageController@addImage');
+    //$app->post('images/informations/{id}','ImageController@addImage');
 
-    $app->put('image/{unix}','ImageController@updateImage');
+    $app->post('images/informations/{id}','ImageController@updateImage');
 
 });
 

@@ -81,7 +81,8 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-
+$app->register(Intervention\Image\ImageServiceProviderLumen::class);
+class_alias(Intervention\Image\Facades\Image::class, 'Image');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
