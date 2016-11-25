@@ -43,28 +43,35 @@ class LinkController extends Controller{
     }
 
     public function addLinkCat(Request $request){
-        if($request->has('unixParent') && $request->has('unixEnfant')){
-            $CategorieParent  = Categorie::where('unix', $request->input('unixParent'))->first();
-            $CategorieEnfant  = Categorie::where('unix', $request->input('unixEnfant'))->first();
-            if(isset($CategorieParent) && isset($CategorieEnfant)){
-                DB::insert('insert into categories_parents (idParent, idEnfant) values (?, ?)', [$CategorieParent->id, $CategorieEnfant->id]);
-                return response()->json("posted");
-            }
+        if($request->has('idParent') && $request->has('idEnfant')){ 
+            DB::insert('insert into categories_parents (idParent, idEnfant) values (?, ?)', [$request->input('idParent'), $request->input('idEnfant')]);
+            return response()->json("posted"); 
         }
         return response()->json("failed");
     }
 
     public function addLinkInfo(Request $request){
-        if($request->has('unixParent') && $request->has('unixEnfant')){
-            $CategorieParent  = Categorie::where('unix', $request->input('unixParent'))->first();
-            $Information  = Information::where('unix', $request->input('unixEnfant'))->first();
-            if(isset($CategorieParent) && isset($Information)){
-                DB::insert('insert into informations_parents (idParent, idEnfant) values (?, ?)', [$CategorieParent->id, $Information->id]);
-                return response()->json("posted");
-            }
+        if($request->has('idParent') && $request->has('idEnfant')){
+            DB::insert('insert into informations_parents (idParent, idEnfant) values (?, ?)', [$request->input('idParent'), $request->input('idEnfant')]);
+            return response()->json("posted");   
         }
         return response()->json("failed");
     }
 
+    public function delLinkInfo($idParent,$idEnfant){
+        if(isset($idParent) && isset($idEnfant)){
+            DB::table('informations_parents')->where([['idEnfant', '=', $idEnfant],['idParent', '=', $idParent]])->delete();
+            return response()->json("deleted");
+        }
+        return response()->json("failed");
+    }
+
+    public function delLinkCat($idParent,$idEnfant){
+        if(isset($idParent) && isset($idEnfant)){
+            DB::table('categories_parents')->where([['idEnfant', '=', $idEnfant],['idParent', '=', $idParent]])->delete();
+            return response()->json("deleted");
+        }
+        return response()->json("failed");
+    }
 }
 ?>

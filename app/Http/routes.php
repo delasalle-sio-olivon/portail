@@ -32,10 +32,10 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
     $app->get('categories/{unix}/enfants/categories','CategorieController@getCategorieEnfantsCategories');
 
-    $app->post('categories/{unix}/enfants/categories/{unixEnfant}','CategorieController@createCategorieEnfantsCategories');
+    /*$app->post('categories/{unix}/enfants/categories/{unixEnfant}','CategorieController@createCategorieEnfantsCategories');
 
     $app->delete('categories/{unix}/enfants/categories/{unixEnfant}','CategorieController@deleteCategorieEnfantsCategories');
-
+    */
 
     /*
     Informations
@@ -53,14 +53,14 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
     $app->get('categories/{unix}/enfants/informations','InformationController@getCategorieEnfantsInformations');
 
-    $app->post('categories/{unix}/enfants/informations/{unixEnfant}','InformationController@createCategorieEnfantsInformations');
+    /*$app->post('categories/{unix}/enfants/informations/{unixEnfant}','InformationController@createCategorieEnfantsInformations');
 
     $app->delete('categories/{unix}/enfants/informations/{unixEnfant}','InformationController@deleteCategorieEnfantsInformations');
-    
+    */
 
     $app->get('links/categories','LinkController@categories');
 
-    $app->put('links/categories','LinkController@updateAllCats');
+    //$app->put('links/categories','LinkController@updateAllCats');
 
     $app->post('links/categories','LinkController@addLinkCat');
 
@@ -68,8 +68,15 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
     $app->get('links/informations','LinkController@informations');
 
-    $app->put('links/informations','LinkController@updateAllInfos');
+    //$app->put('links/informations','LinkController@updateAllInfos');
 
+    $app->delete('links/informations/{idParent}/{idEnfant}','LinkController@delLinkInfo');
+
+    $app->delete('links/categories/{idParent}/{idEnfant}','LinkController@delLinkCat');
+
+    $app->post('image/{unix}','ImageController@addImage');
+
+    $app->put('image/{unix}','ImageController@updateImage');
 
 });
 
