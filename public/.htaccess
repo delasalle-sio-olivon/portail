@@ -7,11 +7,16 @@
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/resources/(.*)$
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
     # Handle Front Controller...
+    RewriteCond %{REQUEST_URI} !^/resources/(.*)$
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /$1.js [L]
     
 </IfModule>

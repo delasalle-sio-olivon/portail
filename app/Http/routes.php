@@ -80,6 +80,6 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
 });
 
-$app->group(['prefix' => 'portail', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
+$app->group(['prefix' => '', 'namespace' => 'App\Http\Controllers'], function () use ($app) {
     $app->get('','PortailController@index');
 });

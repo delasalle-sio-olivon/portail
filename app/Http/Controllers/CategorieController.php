@@ -67,7 +67,7 @@ class CategorieController extends Controller{
     public function getCategorieEnfantsCategories($unix){
         $CategorieParent = Categorie::where('unix', $unix)->first();
         if(isset($CategorieParent->id)){
-            $Categories  = Categorie::join("categories_parents", "idEnfant", '=', 'id')->where('idParent', '=', $CategorieParent->id)->get();
+            $Categories  = DB::select('SELECT * FROM categories, categories_parents WHERE id = idEnfant AND idParent = ?', [$CategorieParent->id]);
             return response()->json($Categories);
         }
         return response()->json('failed');

@@ -66,7 +66,7 @@ class InformationController extends Controller{
     public function getCategorieEnfantsInformations($unix){
         $CategorieParent = Categorie::where('unix', $unix)->first();
         if(isset($CategorieParent->id)){
-            $Informations  = Information::join("informations_parents", "idEnfant", '=', 'id')->where('idParent', '=', $CategorieParent->id)->get();
+            $Informations  = DB::select('SELECT * FROM informations, informations_parents WHERE id = idEnfant AND idParent = ?', [$CategorieParent->id]);
             return response()->json($Informations);
         }
         return response()->json("failed");
