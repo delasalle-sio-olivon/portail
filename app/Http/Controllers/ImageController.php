@@ -25,6 +25,7 @@ class ImageController extends Controller{
             echo $request->file('file');
             Image::make($request->file('file'))->save('../resources/views/front/app/ressource/images/informations/'.$id.'.png');
             //Image::make($request->file('file'))->save('../resources/views/front/app/ressource/images/informations/'.$id.'.mini.png');
+            //$jpg = (string) Image::make('public/foo.png')->encode('jpg', 75);
         }
     }
 
